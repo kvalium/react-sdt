@@ -1,0 +1,11 @@
+---
+application:
+  name: "react-sdt"
+  project: "rust-sdt"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-react-sdt"
+  routes:
+  - application_name: "react-sdt"
+    paths:
+    - "/*"
