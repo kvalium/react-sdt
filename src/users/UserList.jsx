@@ -1,14 +1,7 @@
-import { useQuery } from "react-query";
-import { backEndUrl } from "../configuration";
+import { useUsers } from "./usersApi";
 
 export const UserList = () => {
-  const { isLoading, error, data: users } = useQuery(
-    "userList",
-    () => fetch(`${backEndUrl}/users`).then((res) => res.json()),
-    {
-      staleTime: 10000,
-    }
-  );
+  const { isLoading, error, data: users } = useUsers();
 
   if (isLoading) return "Loading...";
 
