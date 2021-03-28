@@ -22,6 +22,7 @@ export const UserList = () => {
             <th>First Name</th>
             <th>Last Name</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +30,14 @@ export const UserList = () => {
             <tr key={user.id}>
               <td>{user.first_name}</td>
               <td>{user.last_name}</td>
+              <td>
+                <Link
+                  className="button is-small is-info"
+                  to={`/users/${user.id}`}
+                >
+                  Update
+                </Link>
+              </td>
               <td>
                 <button
                   onClick={() => deleteUser(user.id)}

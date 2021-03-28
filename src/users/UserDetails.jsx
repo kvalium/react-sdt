@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router";
+import { Redirect, useParams } from "react-router";
 import { Input } from "../form/Input";
 import { Loading } from "../form/Loading";
-import { usePersistUser } from "./usersApi";
-export const NewUser = () => {
-  const { register, handleSubmit, errors } = useForm();
+import { usePersistUser, useUser } from "./usersApi";
+export const UserDetails = () => {
+  let { id } = useParams();
+
+  const { register, handleSubmit, errors, reset } = useForm();
   const {
     mutate: persist,
     isLoading: isSaving,
@@ -13,7 +15,13 @@ export const NewUser = () => {
     isSuccess,
   } = usePersistUser();
 
-  if (isSaving) return <Loading />;
+  const { data: user, isLoading: loadingUser } = useUser(id);
+
+  useEffect(() => {
+    user && reset(user);
+  }, [user, reset]);
+
+  if (isSaving || loadingUser) return <Loading />;
   if (isSuccess) return <Redirect to="/users" />;
   if (error)
     return (

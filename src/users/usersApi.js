@@ -3,11 +3,16 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { backEndUrl } from "../configuration";
 
 export const useUsers = () =>
+  useQuery("userList", () =>
+    axios.get(`${backEndUrl}/users`).then(({ data }) => data)
+  );
+
+export const useUser = (id) =>
   useQuery(
-    "userList",
-    () => axios.get(`${backEndUrl}/users`).then(({ data }) => data),
+    ["user", id],
+    () => axios.get(`${backEndUrl}/users/${id}`).then(({ data }) => data),
     {
-      staleTime: 10000,
+      enabled: id !== "new",
     }
   );
 export const usePersistUser = () => {
